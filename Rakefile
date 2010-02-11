@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "autotest-inotify"
-    gem.summary = %Q{Use libinotify (on Linux) instead of filesystem polling.}
+    gem.summary = %Q{Teaches autotest to use libinotify (on Linux) instead of filesystem polling.}
     gem.description = %Q{Autotest relies on filesystem polling to detect modifications in source code files. This is expensive for the CPU, harddrive and battery - and unnecesary on Linux with libinotify installed. This gem teaches autotest how to use libinotify.}
     gem.email = "ericw@kill-0.com"
     gem.homepage = "http://kill-0.com/projects/autotest-inotify"
