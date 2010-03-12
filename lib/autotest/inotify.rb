@@ -1,6 +1,7 @@
 # Extend autotest with inotify goodness
 
 require "rubygems"
+require "ruby-debug"
 require "autotest"
 require "rbconfig"
 require "rb-inotify"
@@ -47,7 +48,9 @@ module Autotest::Inotify
       def find_files_to_test(files=nil)
         if first_time_run?
           setup_inotify
-          select_all_tests
+          unless options[:no_full_after_start]
+            select_all_tests
+          end
         else
           p @changed_files if $v
           hook :updated, @changed_files
@@ -59,7 +62,7 @@ module Autotest::Inotify
   end
 
   def first_time_run?
-    self.last_mtime.to_i.zero?
+    @notifier.nil?
   end
 
   def setup_inotify

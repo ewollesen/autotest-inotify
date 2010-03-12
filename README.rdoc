@@ -32,7 +32,7 @@ file:
 
 == THANK YOU:
 
-Inspiration for this gem came from work done by Alban Peignier's[1], and Sven
+Inspiration for this gem came from work done by Alban Peignier[1], and Sven
 Schwyn[2]
 
 1. http://blog.tryphon.org/alban/archives/2007/10/26/inotify-support-for-autotest/
@@ -42,7 +42,7 @@ Schwyn[2]
 
 (The MIT License)
 
-Copyright (c) 2009 Eric A. Wollesen
+Copyright (c) 2010 Eric A. Wollesen
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
