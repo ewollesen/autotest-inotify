@@ -1,7 +1,6 @@
 # Extend autotest with inotify goodness
 
 require "rubygems"
-require "ruby-debug"
 require "autotest"
 require "rbconfig"
 require "rb-inotify"
