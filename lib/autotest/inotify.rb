@@ -41,7 +41,7 @@ module Autotest::Inotify
       def wait_for_changes
         @changed_files = {}
         hook :waiting
-        @notifier.process
+        @notifier.process while @changed_files.empty?
       end
 
       def find_files_to_test(files=nil)
@@ -66,9 +66,16 @@ module Autotest::Inotify
 
   def setup_inotify
     @notifier = INotify::Notifier.new
-    self.find_files.keys.each do |filename|
-      @notifier.watch(filename, :modify) do |event| 
-        handle_file_event(event)
+    files = self.find_files.keys
+    dirs = files.map{|f| File.dirname( f )}.uniq
+    # Watch directories to catch delete/move swap patterns as well as direct
+    # modifications.  This handles, e.g. :w in vim.
+    dirs.each do |dir|
+      @notifier.watch( dir, :all_events ) do |event|
+        if  event.flags.include? :modify and
+            files.include? event.absolute_name 
+          handle_file_event( event )
+        end
       end
     end
   end
