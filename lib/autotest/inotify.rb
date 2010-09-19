@@ -71,13 +71,18 @@ module Autotest::Inotify
     # Watch directories to catch delete/move swap patterns as well as direct
     # modifications.  This handles, e.g. :w in vim.
     dirs.each do |dir|
-      @notifier.watch( dir, :all_events ) do |event|
-        if  event.flags.include? :modify and
+      @notifier.watch(dir, :all_events) do |event|
+        if event_of_interest?(event.flags) &&
             files.include? event.absolute_name 
           handle_file_event( event )
         end
       end
     end
+  end
+
+  def event_of_interest?(flags)
+    flags.include?(:modify) ||
+      flags.include?(:moved_to)
   end
 
   def handle_file_event(event)
