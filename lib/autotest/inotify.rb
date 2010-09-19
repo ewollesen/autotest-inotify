@@ -73,8 +73,8 @@ module Autotest::Inotify
     dirs.each do |dir|
       @notifier.watch(dir, :all_events) do |event|
         if event_of_interest?(event.flags) &&
-            files.include? event.absolute_name 
-          handle_file_event( event )
+            files.include?(event.absolute_name)
+          handle_file_event(event)
         end
       end
     end
