@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{autotest-inotify}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Eric Wollesen"]
-  s.date = %q{2010-06-16}
+  s.date = %q{2010-09-19}
   s.description = %q{Autotest relies on filesystem polling to detect modifications in source code files. This is expensive for the CPU, harddrive and battery - and unnecesary on Linux with libinotify installed. This gem teaches autotest how to use libinotify.}
   s.email = %q{ericw@kill-0.com}
   s.extra_rdoc_files = [
