@@ -5,13 +5,15 @@ require "autotest"
 require "rbconfig"
 require "rb-inotify"
 
-Autotest.add_hook :initialize do
+
+Autotest.add_hook :initialize do |at|
   include Autotest::Inotify
-  setup_inotify_if_running_linux
+  at.setup_inotify_if_running_linux
 end
 
+
 ##
-# Autotest::Inofity
+# Autotest::Inotify
 #
 # == FEATURES:
 # * Use Linux's inotify instead of filesystem polling
@@ -21,13 +23,15 @@ end
 # require "autotest/inotify"
 module Autotest::Inotify
 
-  private
-
   def setup_inotify_if_running_linux
     if running_linux?
       override_autotest_methods
+      setup_inotify
     end
   end
+
+
+  private
 
   def running_linux?
     /linux/i === RbConfig::CONFIG["host_os"]
@@ -51,7 +55,7 @@ module Autotest::Inotify
             select_all_tests
           end
         else
-          p @changed_files if $v
+          p @changed_files if options[:verbose]
           hook :updated, @changed_files
           select_tests_for_changed_files
         end
