@@ -44,13 +44,13 @@ module Autotest::Inotify
 
       def wait_for_changes
         @changed_files = {}
+        @waited = true
         hook :waiting
         @notifier.process while @changed_files.empty?
       end
 
       def find_files_to_test(files=nil)
-        if first_time_run?
-          setup_inotify
+        if not @waited
           unless options[:no_full_after_start]
             select_all_tests
           end
@@ -62,10 +62,6 @@ module Autotest::Inotify
         return Time.now
       end
     end
-  end
-
-  def first_time_run?
-    @notifier.nil?
   end
 
   def setup_inotify
